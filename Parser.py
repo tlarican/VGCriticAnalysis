@@ -1,6 +1,7 @@
 import pandas
 import numpy as np
 import scipy as sp
+import scipy.stats.mstats as mstats
 import numpy.ma as ma
 import matplotlib.pyplot as plt
 
@@ -49,7 +50,6 @@ user_score = ma.masked_object(user_score, user_count)
 
 rating = np.asarray(data.Rating.tolist())
 
-
 # Plotting Global Sales
 plt.figure()
 plt.plot(critic_score, global_sales, 'o', markersize=2, label='critic score')
@@ -58,6 +58,11 @@ plt.xlabel('Critic Score/User Score')
 plt.ylabel('Global Sales (Millions)')
 plt.title('Critic Score/User Score vs. Global Sales')
 plt.show()
+slope, intercept, r_value, p_value, std_err = mstats.linregress(critic_score, global_sales)
+print('Global Sales Regression')
+print('Slope: ' + str(slope) + '\nIntercept: ' + str(intercept) + '\nR Value: '
+      + str(r_value) + '\nP Value: ' + str(p_value) + '\nStandard Error: '
+      + str(std_err))
 
 # Plotting NA Sales
 plt.figure()
