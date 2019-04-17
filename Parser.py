@@ -1,5 +1,8 @@
 import pandas
 import numpy as np
+import scipy as sp
+import numpy.ma as ma
+import matplotlib.pyplot as plt
 
 colnames = ['Name', 'Platform', 'Year_Of_Release', 'Genre', 'Publisher',
             'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales',
@@ -11,16 +14,59 @@ platform = np.asarray(data.Platform.tolist())
 year_of_release = np.asarray(data.Year_Of_Release.tolist())
 genre = np.asarray(data.Genre.tolist())
 publisher = np.asarray(data.Publisher.tolist())
+
+# Masking 3 STD Away
 NA_sales = np.asarray(data.NA_Sales.tolist())  # millions
+NA_sales_mean = sp.mean(NA_sales)
+NA_sales_std = sp.std(NA_sales)
+NA_sales = ma.masked_outside(NA_sales,
+                             NA_sales_mean - NA_sales_std * 3,
+                             NA_sales_mean + NA_sales_std * 3)
+
 EU_sales = np.asarray(data.EU_Sales.tolist())  # millions
 JP_sales = np.asarray(data.JP_Sales.tolist())  # millions
 other_sales = np.asarray(data.Other_Sales.tolist())  # millions
-global_Sales = np.asarray(data.Global_Sales.tolist())  # millions
+
+# Masking 3 STD away
+global_sales = np.asarray(data.Global_Sales.tolist())  # millions
+global_sales_mean = sp.mean(global_sales)
+global_sales_std = sp.std(global_sales)
+global_sales = ma.masked_outside(global_sales,
+                                 global_sales_mean - global_sales_std * 3,
+                                 global_sales_mean + global_sales_std * 3)
+
+# Masking Critic Count < 20
 critic_score = np.asarray(data.Critic_Score.tolist())
-critic_count = np.asarray(data.Critic_Count.tolist())
-user_score = np.asarray(data.User_Score.tolist())
-user_count = np.asarray(data.User_Count.tolist())
+critic_count = ma.masked_invalid(data.Critic_Count.tolist())
+critic_count = ma.masked_less(critic_count, 20)
+critic_score = ma.masked_object(critic_score, critic_count)
+
+# Masking User Count < 20
+user_score = np.asarray(data.User_Score.tolist()) * 10
+user_count = ma.masked_invalid(data.User_Count.tolist())
+user_count = ma.masked_less(user_count, 20)
+user_score = ma.masked_object(user_score, user_count)
+
 rating = np.asarray(data.Rating.tolist())
+
+
+# Plotting Global Sales
+plt.figure()
+plt.plot(critic_score, global_sales, 'o', markersize=2, label='critic score')
+plt.plot(user_score, global_sales, 'or', markersize=2, label='user score')
+plt.xlabel('Critic Score/User Score')
+plt.ylabel('Global Sales (Millions)')
+plt.title('Critic Score/User Score vs. Global Sales')
+plt.show()
+
+# Plotting NA Sales
+plt.figure()
+plt.plot(critic_score, NA_sales, 'o', markersize=2, label='critic score')
+plt.plot(user_score, NA_sales, 'or', markersize=2, label='user score')
+plt.xlabel('Critic Score/User Score')
+plt.ylabel('NA Sales (Millions)')
+plt.title('Critic Score/User Score vs. NA Sales')
+plt.show()
 
 del colnames
 del data
