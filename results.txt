@@ -4,6 +4,7 @@ Intercept: -1.1599638912263885
 R Value: 0.34668115110051967
 P Value: 5.0305572245793596e-123
 Standard Error: 0.001043672652723125
+T Stat: 24.36576807243733; Reject Null Hypothesis
 
 NA Sales Regression
 Slope (Million per 1): 0.013145730944428252
@@ -11,6 +12,7 @@ Intercept: -0.6004020238707279
 R Value: 0.3327381817518463
 P Value: 2.943764401365015e-113
 Standard Error: 0.000564234208174846
+T Stat: 23.298358649595784; Reject Null Hypothesis
 
 EU Sales Regression
 Slope (Million per 1): 0.006715790868473362
@@ -18,6 +20,7 @@ Intercept: -0.2948006367035595
 R Value: 0.28720382915829545
 P Value: 5.227743538040341e-83
 Standard Error: 0.0003404627888092938
+T Stat: 19.725476877988957; Reject Null Hypothesis
 
 JP Sales Regression
 Slope (Million per 1): 0.0013246265277913872
@@ -25,6 +28,7 @@ Intercept: -0.04949722381576806
 R Value: 0.12659083013531955
 P Value: 3.555180006846115e-17
 Standard Error: 0.00015655045643264557
+T Stat: 8.461339289427725; Reject Null Hypothesis
 
 Other Sales Regression
 Slope (Million per 1): 0.002356957680236135
@@ -32,4 +36,5 @@ Intercept: -0.10367021276240947
 R Value: 0.290642381308453
 P Value: 2.1372989172705982e-85
 Standard Error: 0.00011770192355357455
+T Stat: 20.024801711616167; Reject Null Hypothesis
 

@@ -63,12 +63,18 @@ global_sales = ma.masked_outside(global_sales,
 # - Regression Critic Score vs Global Sales
 slope, intercept, r_value, p_value, std_err = \
     mstats.linregress(critic_score, global_sales)
+t_score = slope / std_err
+
 # - Print
 with open('results.txt', 'w') as f:
     f.write('Global Sales Regression\nSlope (Million per 1): ' + str(slope) +
             '\nIntercept: ' + str(intercept) + '\nR Value: ' + str(r_value) +
             '\nP Value: ' + str(p_value) + '\nStandard Error: ' + str(std_err)
-            + '\n\n')
+            + '\nT Stat: ' + str(t_score))
+    if t_score > 1.96:
+        f.write('; Reject Null Hypothesis\n\n')
+    else:
+        f.write('; Accept Null Hypothesis\n\n')
 
 # - For plotting regression line
 x = np.arange(1, 100)
@@ -99,12 +105,18 @@ NA_sales = ma.masked_outside(NA_sales,
 # - Regression Critic Score vs NA Sales
 slope, intercept, r_value, p_value, std_err = \
     mstats.linregress(critic_score, NA_sales)
+t_score = slope / std_err
+
 # - Print
 with open('results.txt', 'a') as f:
     f.write('NA Sales Regression\nSlope (Million per 1): ' + str(slope) +
             '\nIntercept: ' + str(intercept) + '\nR Value: ' + str(r_value) +
             '\nP Value: ' + str(p_value) + '\nStandard Error: ' + str(std_err)
-            + '\n\n')
+            + '\nT Stat: ' + str(t_score))
+    if t_score > 1.96:
+        f.write('; Reject Null Hypothesis\n\n')
+    else:
+        f.write('; Accept Null Hypothesis\n\n')
 
 # - Plotting NA Sales
 plt.figure('NA_Sales')
@@ -132,12 +144,18 @@ EU_sales = ma.masked_outside(EU_sales,
 # - Regression Critic Score vs EU Sales
 slope, intercept, r_value, p_value, std_err = \
     mstats.linregress(critic_score, EU_sales)
+t_score = slope / std_err
+
 # - Print
 with open('results.txt', 'a') as f:
     f.write('EU Sales Regression\nSlope (Million per 1): ' + str(slope) +
             '\nIntercept: ' + str(intercept) + '\nR Value: ' + str(r_value) +
             '\nP Value: ' + str(p_value) + '\nStandard Error: ' + str(std_err)
-            + '\n\n')
+            + '\nT Stat: ' + str(t_score))
+    if t_score > 1.96:
+        f.write('; Reject Null Hypothesis\n\n')
+    else:
+        f.write('; Accept Null Hypothesis\n\n')
 
 # - Plotting EU Sales
 plt.figure('EU_Sales')
@@ -165,12 +183,18 @@ JP_sales = ma.masked_outside(JP_sales,
 # - Regression Critic Score vs JP Sales
 slope, intercept, r_value, p_value, std_err = \
     mstats.linregress(critic_score, JP_sales)
+t_score = slope / std_err
+
 # - Print
 with open('results.txt', 'a') as f:
     f.write('JP Sales Regression\nSlope (Million per 1): ' + str(slope) +
             '\nIntercept: ' + str(intercept) + '\nR Value: ' + str(r_value) +
             '\nP Value: ' + str(p_value) + '\nStandard Error: ' + str(std_err)
-            + '\n\n')
+            + '\nT Stat: ' + str(t_score))
+    if t_score > 1.96:
+        f.write('; Reject Null Hypothesis\n\n')
+    else:
+        f.write('; Accept Null Hypothesis\n\n')
 
 # - Plotting JP Sales
 plt.figure('JP_Sales')
@@ -198,12 +222,18 @@ other_sales = ma.masked_outside(other_sales,
 # - Regression Critic Score vs other sales
 slope, intercept, r_value, p_value, std_err = \
     mstats.linregress(critic_score, other_sales)
+t_score = slope / std_err
+
 # - Print
 with open('results.txt', 'a') as f:
     f.write('Other Sales Regression\nSlope (Million per 1): ' + str(slope) +
             '\nIntercept: ' + str(intercept) + '\nR Value: ' + str(r_value) +
             '\nP Value: ' + str(p_value) + '\nStandard Error: ' + str(std_err)
-            + '\n\n')
+            + '\nT Stat: ' + str(t_score))
+    if t_score > 1.96:
+        f.write('; Reject Null Hypothesis\n\n')
+    else:
+        f.write('; Accept Null Hypothesis\n\n')
 
 # - Plotting Other Sales
 plt.figure('Other_Sales')
@@ -220,3 +250,5 @@ plt.plot(x, intercept + x * slope, 'k')
 plt.savefig('Other_Sales')
 
 # ==== end file ====
+
+# TODO: Histograms of data, Mask by year
